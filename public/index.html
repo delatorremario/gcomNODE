@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es" ng-app="app">
+<head>
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Agenda</title>
+	<link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
+</head>
+<body >
+	<script type="text/javascript" src="/js/angular.min.js"></script>
+	<script type="text/javascript" src="/js/TurnoCtrl.js"></script>
+	
+	<div ng-controller="TurnoCtrl">
+		<h1>Listado de Turnos</h1>
+		<div class="container" >
+
+			<ul >
+				<li ng-repeat="turno in turnos">
+					<span> {{ turno.cuando }} | {{ turno.duracionEstimada }} </span>
+				</li>
+			</ul>
+
+			<div name="guardar">
+				<label>Fecha de Turno</label>
+				<input type="text"/>
+			</div>
+
+			<p>{{ mimensaje }}</p>
+
+		</div>
+	</div>
+
+</body>
+</html>
