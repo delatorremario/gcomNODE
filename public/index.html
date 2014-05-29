@@ -8,22 +8,57 @@
 </head>
 <body >
 	<script type="text/javascript" src="/js/angular.min.js"></script>
-	<script type="text/javascript" src="/js/TurnoCtrl.js"></script>
+	<script type="text/javascript" src="/controllers/TurnoCtrl.js"></script>
 	
 	<div ng-controller="TurnoCtrl">
-		<h1>Listado de Turnos</h1>
+		
 		<div class="container" >
+			<div name="agregarTurno">
+				<h4>Nuevo Turno</h4>
+				<form name="agregarTurnoFrm" ng-submit='agregarTurno()'>
+					<input type="date" ng-model="textoCuando"
+				       placeholder="dd-MM-yyyy HH:mm" ng-required="true" />
+				 	
+					<br>
+					<input type="text" size="20" placeholder="Tiempo en minutos"
+					 ng-model="textoDuracion" ng-required="true"/>
+					<br>
+					<input type="text" size="20" placeholder="Descripción"
+					 ng-model="textoDesc" ng-required="true"/>
+					<br>
+					<br>
+					<button type="submit">Guardar</button>
+				</form>
+				
 
+			</div>
+			<h3>Listado de Turnos</h3>
+			<span>Faltan {{restantes()}} de {{turnos.length}}</span>
 			<ul >
 				<li ng-repeat="turno in turnos">
-					<span> {{ turno.cuando }} | {{ turno.duracionEstimada }} </span>
+					<input type="checkbox" ng-model="turno.hecho" ng-change="editarTurno(turno)">
+					<span ng-click="editar = true"> {{ turno.cuando }} | {{ turno.duracionEstimada }} min| {{ turno.descripcion }} </span>
+					
+					<form name="editarTurnoFrm" ng-show="editar" ng-submit="editar = false;editarTurno(turno)">
+						<input type="date" ng-model="turno.cuando"
+					       placeholder="dd-MM-yyyy HH:mm" ng-required="true" />
+					 	
+						<br>
+						<input type="text" size="20" placeholder="Tiempo en minutos"
+						 ng-model="turno.duracionEstimada" ng-required="true"/>
+						<br>
+						<input type="text" size="20" placeholder="Descripción"
+						 ng-model="turno.descripcion" ng-required="true"/>
+						<br>
+						<br>
+						<button type="submit" >Guardar</button>
+					</form>
+				[<a href="" ng-click="eliminarTurno(turno)">quitar</a>]
+				
 				</li>
 			</ul>
 
-			<div name="guardar">
-				<label>Fecha de Turno</label>
-				<input type="text"/>
-			</div>
+			
 
 			<p>{{ mimensaje }}</p>
 
