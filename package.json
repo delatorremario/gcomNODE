@@ -1,0 +1,10 @@
+{
+	"name":"gcomNODE",
+	"version":"0.0.1",
+	"descripcion":"Primer version de gcom NODE ",
+	"main":"app.js",
+	"dependencies":{
+		"express":"~3.4.8",
+		"mongoose":"latest"
+	}
+}
