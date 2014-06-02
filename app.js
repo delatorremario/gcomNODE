@@ -1,34 +1,28 @@
 "use strict";
 
-var express = require('express');
-var app = express();
-var mongoose=require('mongoose');
+var mongoose = require('mongoose');
 
 mongoose.connect('mongodb://localhost/gcomNODE_db', function (err){
-	if(err) console.log('ERROR conectando la db: ' + err);
-	else console.log('Base de datos conectada');
-});
+	if(err) return console.log('ERROR conectando la db: ' + err);
+	console.log('Base de datos conectada');
 
+	var express = require('express');
+	var http = require('http');
+	var bodyParser = require('body-parser');
+	var methodOverride = require('method-override');
+	var app = express();
 
-app.configure(function () {
-	app.use(express.bodyParser());
-	app.use(express.methodOverride());
-	app.use(app.router);
-	app.use(express.static(__dirname + '/public'));
+	app.use(bodyParser());
+	app.use(methodOverride());
+	app.use(express.static('public'));
 
-});
+	var server = http.createServer(app).listen(8080, function (){
+		console.log("La magia de Vector Vimana");
+	});
+	var io = require("socket.io")(server);
 
+	app.use('/turnos', require('./routes/TurnoRouter')(io));
+	//app.use('/turnos', require('routes/TurnoRouter'));
+	//app.use('/turnos', require('routes/TurnoRouter'));
 
-app.get('/',function (req,res){
-	console.log("Estan llamando al raiz");
-	res.sendfile('./public/index.html');
-});
-
-
-
-require('./routes/TurnoRouter')(app);
-//require('./routes/ClienteRouter')(app);
-
-app.listen(8080,function (){
-	console.log("La magia de Vector Vimana");
 });

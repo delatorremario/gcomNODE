@@ -1,4 +1,0 @@
-gcomNODE
-========
-
-Version inicial
