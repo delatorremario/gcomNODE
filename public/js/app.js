@@ -1,8 +1,14 @@
 
-var app = angular.module ('app', ['ngRoute', 'btford.socket-io']);
+var app = angular.module ('app', ['ngRoute', 'btford.socket-io','angularMoment']);
+
+app.run(function(amMoment) {
+    amMoment.changeLanguage('es');
+});
 
 app.config(function($httpProvider, $routeProvider){
+	var fecha = moment().format('YYYY-MM-DD');
 	$httpProvider.defaults.headers.common = {'Content-Type': 'application/json'};
+	
 	$routeProvider.when('/turnos', {
 		templateUrl: 'views/turnos.html',
 		controller: 'TurnoCtrl',
@@ -11,7 +17,7 @@ app.config(function($httpProvider, $routeProvider){
 				
 				var defer = $q.defer();
 				
-				TurnosService.listarTurnos().then(function(){
+				TurnosService.listarTurnosXfecha(fecha).then(function(){
 					defer.resolve();
 				}, function(){
 					defer.reject();

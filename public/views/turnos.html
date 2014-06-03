@@ -1,8 +1,16 @@
 <div name="agregarTurno">
 	<h4>Nuevo Turno</h4>
+	{{nuevoTurno.cuando}}
+	{{DisplayFechaTurnos}}
+	<span>
+	 	<button ng-click="restarUnDia()"><<</button>
+	 	{{nuevoTurno.cuando | amCalendar}}
+	 	<button ng-click="sumarUnDia()">>></button>
+		</span>
 	<form name="agregarTurnoFrm" ng-submit='agregarTurno()'>
-		<input type="date" ng-model="nuevoTurno.cuando"
-	       placeholder="dd-MM-yyyy HH:mm" ng-required="true" />
+		<!--<input type='display' ng-model="nuevoTurno.cuando"
+	      ng-required="true" />
+	 	-->
 	 	
 		<br>
 		<input type="text" size="20" placeholder="Tiempo en minutos"
@@ -18,12 +26,21 @@
 	
 
 </div>
-<h3>Listado de Turnos</h3>
+
+<div class="fechaTurno">
+	
+
+<label>{{ DisplayFechaTurnos | amDateFormat:'YYYY-MM-DD' }}</label>
+
+</div>
+
 <span>{{restantes()}}</span>
+<!--{{nuevoTurno.cuando  | amDateFormat:'YYYY-MM-DD'  }}
+{{nuevoTurno.cuando | amDateFormat:'YYYY-MM-DD'}}-->
 <ul >
-	<li ng-repeat="turno in turnos track by turno._id">
+	<li ng-repeat="turno in turnos | filter: {turno.cuando:'2014-06-03'} ">
 		<input type="checkbox" ng-model="turno.hecho" ng-change="editarTurno(turno)">
-		<span ng-click="editar = true"> {{ turno.cuando  | date:'dd/MM/yy HH:mm'   }} | {{ turno.duracionEstimada }} min| {{ turno.descripcion }} </span>
+		<span ng-click="editar = true"> {{ turno.cuando  | amDateFormat:'YYYY-MM-DD'   }} | {{ turno.duracionEstimada }} min| {{ turno.descripcion }} </span>
 		
 		<form name="editarTurnoFrm" ng-show="editar" ng-submit="editar = false;editarTurno(turno)">
 			<input type="date" ng-model="turno.cuando"

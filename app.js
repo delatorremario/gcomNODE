@@ -10,6 +10,9 @@ mongoose.connect('mongodb://localhost/gcomNODE_db', function (err){
 	var http = require('http');
 	var bodyParser = require('body-parser');
 	var methodOverride = require('method-override');
+	/*var moment = require('moment');
+		moment('America/Argentina/Buenos_Aires').format();
+	*/
 	var app = express();
 
 	app.use(bodyParser());

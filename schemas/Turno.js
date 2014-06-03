@@ -3,6 +3,7 @@ var mongoose = require('mongoose'),
 
 var turno = new Schema({
 	cuando: {type : Date, required: true},
+	hora:{type:String, required:true},
 	duracionEstimada: {type : Number , required: true},
 	descripcion : {type : String, required: true},
 	activo: { type:Boolean, default:true},

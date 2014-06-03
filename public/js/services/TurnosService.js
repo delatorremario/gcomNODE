@@ -5,7 +5,16 @@ app.factory('TurnosService', function ($http, socketFactory) {
 
 	TurnosService.turnos = {};
 
-	TurnosService.listarTurnos = function () {
+	TurnosService.listarTurnosXfecha = function (fecha) {
+		return $http.get('/turnos/'+ fecha).then(function (response) {
+				//TurnosService.turnos = angular.copy(response.data)
+			angular.extend(TurnosService.turnos, response.data);
+        }, function (response) {
+            return response.status;
+        });
+	}
+
+	TurnosService.listarTurnosCompleto = function () {
 		return $http.get('/turnos').then(function (response) {
 			angular.extend(TurnosService.turnos, response.data);
         }, function (response) {
