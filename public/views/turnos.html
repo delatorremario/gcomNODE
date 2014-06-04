@@ -3,23 +3,25 @@
 
 	<div class="col-md-5">
 		<div name="agregarTurno"  class="form-group">
-			<p><button ng-click="restarUnDia()"><<</button>
-			 	
-			 	<span>{{nuevoTurno.cuando | amCalendar}}</span>
-			 	
-			 	<button ng-click="sumarUnDia()">>></button>
-				
-			<p>
+			     <h4>
+				<p><button class="btnn" ng-click="restarUnDia()"><<</button>
+			     
+			     	<span>{{nuevoTurno.cuando | amCalendar}}</span>
+			
+			 	<button class="btnn" ng-click="sumarUnDia()">>></button>
+			    <p>
+			
+			</h4>
 			<form name="agregarTurnoFrm" ng-submit='agregarTurno()' role="form">
 				
 			 	
-				<input class="form-control" type="text"  placeholder="Hora"
+				<!--<input class="form-control" type="text"  placeholder="Hora"
 				 ng-model="nuevoTurno.hora" ng-required="true"/>
 			 	<br>
 				<input class="form-control" type="text"  placeholder="Tiempo en minutos"
 				 ng-model="nuevoTurno.duracionEstimada" ng-required="true"/>
-				<br>
-				<input class="form-control" type="text"  placeholder="Descripción"
+				<br> -->
+				<input class="form-control input-lg" type="text"  placeholder="Descripción"
 				 ng-model="nuevoTurno.descripcion" ng-required="true"/>
 				<div ng-show="status">{{status}}</div>
 				<br>

@@ -5,3 +5,13 @@
 .hecho-false{
 	color: blue;
 }
+.btnn{
+	 border-radius: 100%;
+	 border-bottom: 0px;
+     height: 35px;  /* Alto del botón */
+     width: 35px;
+     color: white;
+     font-size: 20px;
+     background-color: #77a5c7;
+}
+
