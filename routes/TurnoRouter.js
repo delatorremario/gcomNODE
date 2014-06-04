@@ -56,20 +56,21 @@ module.exports = function(io){
 	var insertTurno = function (req,res){
 		console.log('POST');
 		console.log(req.body);
-		var fecha =  new Date(req.body.cuando);
-		var f = moment(req.body.cuando);
-			console.log (fecha);
-			console.log(f);
-
+		var f = moment(req.body.cuando + " " + req.body.hora );
+		
 		var turno = new Turno({
 			cuando: f,
-			hora: '12:12' , //req.body.hora,
+			//hora: '12:12' , //req.body.hora,
 			duracionEstimada: req.body.duracionEstimada,
 			descripcion : req.body.descripcion,
 		});
 
 		turno.save(function (err){
-			if(!err) console.log('Turno guardado!');
+			if(!err){
+
+			 console.log('Turno guardado!');
+			 console.log(turno);
+			}
 			else console.log('Error al guardar el Turno:' + err);
 			
 			var retorno = {};

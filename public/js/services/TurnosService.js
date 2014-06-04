@@ -3,12 +3,25 @@ app.factory('TurnosService', function ($http, socketFactory) {
 
 	var TurnosService = {};
 
-	TurnosService.turnos = {};
+	TurnosService.turnosCompleto={};
+	TurnosService.turnosRecientes = {};
+	TurnosService.turnosXdia={};
+	
+	TurnosService.listarTurnosInicio = function()
+	{
+		var fecha = moment().format('YYYY-MM-DD');
+		return TurnosService.listarTurnosXfecha(fecha);
+
+	}
+
 
 	TurnosService.listarTurnosXfecha = function (fecha) {
 		return $http.get('/turnos/'+ fecha).then(function (response) {
 				//TurnosService.turnos = angular.copy(response.data)
-			angular.extend(TurnosService.turnos, response.data);
+			//angular.copy(response.data, TurnosService.turnos) ;
+			angular.copy(response.data, TurnosService.turnosXdia) ;
+			//TurnosService.turnos = response.data;
+
         }, function (response) {
             return response.status;
         });
@@ -16,7 +29,7 @@ app.factory('TurnosService', function ($http, socketFactory) {
 
 	TurnosService.listarTurnosCompleto = function () {
 		return $http.get('/turnos').then(function (response) {
-			angular.extend(TurnosService.turnos, response.data);
+			angular.copy(response.data, TurnosService.turnosCompleto) ;
         }, function (response) {
             return response.status;
         });
@@ -51,11 +64,11 @@ app.factory('TurnosService', function ($http, socketFactory) {
 
 	var socket = socketFactory();
 	socket.on('altaModificacionPushTurno', function(data){
-		angular.extend(TurnosService.turnos, data);
+			angular.extend(TurnosService.turnosRecientes, data);
 	});
 
 	socket.on('bajaPushTurno', function(data){
-		delete TurnosService.turnos[data._id];
+		delete TurnosService.turnosXdia[data._id];
 	});
 
 	return TurnosService;

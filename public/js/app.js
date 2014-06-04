@@ -6,7 +6,7 @@ app.run(function(amMoment) {
 });
 
 app.config(function($httpProvider, $routeProvider){
-	var fecha = moment().format('YYYY-MM-DD');
+	//var fecha = moment().format('YYYY-MM-DD');
 	$httpProvider.defaults.headers.common = {'Content-Type': 'application/json'};
 	
 	$routeProvider.when('/turnos', {
@@ -17,7 +17,7 @@ app.config(function($httpProvider, $routeProvider){
 				
 				var defer = $q.defer();
 				
-				TurnosService.listarTurnosXfecha(fecha).then(function(){
+				TurnosService.listarTurnosInicio().then(function(){
 					defer.resolve();
 				}, function(){
 					defer.reject();

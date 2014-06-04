@@ -1,0 +1,48 @@
+<!doctype html>
+	<html lang="es">
+	    <head>       
+	        <meta charset="utf-8"/>
+	        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	        <meta name="viewport" content="width=device-width, initial-scale=1">
+	        <title> Contacto </title>
+            <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+	        <link rel="stylesheet" href="../css/formulariocontacto.css">
+	    </head>
+	<body>
+	   
+       <div class="ibody">
+       	    <div class="jumbotron">
+       	    	 <h1>Contactenos</h1>
+       	    </div>
+       	    <div class="fcontacto">
+       	    	      <div class="logo">
+       	    	      	<img src="../images/1.jpg" height="80" width="270" alt="Contactame">
+       	    	      </div>
+       	    	      
+		       	   	  <form method="POST" name="fcontacto" id="fcontacto" action="./">
+		       	   	  	 <div class="row">
+		       	   	  	 	 <div class="col-md-6">
+		       	   	  	 	 	<label>Tu Nombre:</label>
+				        	     <input type="text" name="nombre" id="nombre" class="form-control">
+		       	   	  	 	 </div>
+		       	   	  	 	 <div class="col-md-6">
+					        	<label>Tu Email:</label>
+					        	<input type="text" name="email" id="email" class="form-control">
+				        	 </div>
+		       	   	  	 </div>
+			        	
+			        	<label>Asunto:</label>
+			        	<input type="text" name="asunto" id="asunto" class="form-control">
+			        	<label>Tu Mensaje:</label>
+			        	<textarea name="mensaje" id="mensaje" cols="30" rows="10" class="form-control"></textarea>
+			        	<input type="submit" class="btn btn-info" value="Enviar">
+			          </form>
+       	   </div>
+	        
+
+       </div>
+        
+	   <script src="bootstrap/js/jquery.js"></script>
+	   <script src="bootstrap/js/bootstrap.min.js"></script>
+	</body>
+</html>
