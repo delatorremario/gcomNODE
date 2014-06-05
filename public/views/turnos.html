@@ -1,41 +1,48 @@
 <link rel="stylesheet" type="text/css" href="../css/listadetareas.css">
 <div class="container">
 
-	<div class="col-md-5">
-		<div name="agregarTurno"  class="form-group">
-			     <h4>
-				<p><button class="btnn" ng-click="restarUnDia()"><<</button>
-			     
-			     	<span>{{nuevoTurno.cuando | amCalendar}}</span>
-			
-			 	<button class="btnn" ng-click="sumarUnDia()">>></button>
-			    <p>
-			
-			</h4>
-			<form name="agregarTurnoFrm" ng-submit='agregarTurno()' role="form">
-				
-			 	
-				<!--<input class="form-control" type="text"  placeholder="Hora"
-				 ng-model="nuevoTurno.hora" ng-required="true"/>
-			 	<br>
-				<input class="form-control" type="text"  placeholder="Tiempo en minutos"
-				 ng-model="nuevoTurno.duracionEstimada" ng-required="true"/>
-				<br> -->
-				<input class="form-control input-lg" type="text"  placeholder="Descripción"
-				 ng-model="nuevoTurno.descripcion" ng-required="true"/>
-				<div ng-show="status">{{status}}</div>
-				<br>
-				<button class="btn btn-success btn-block" type="submit">Guardar</button>
-			</form>
-				</div>
-<h4>Listado de Turno</h4>
+	<div class="col-md-6">
+		<div name="agregarTurno" >
+				     <h4 >
+						<button ng-click="restarUnDia()" style="height: 50px; " class="btn btn-success"><<</button>
+					     
+					    <span>{{nuevoTurno.cuando | amCalendar}}</span>
+					
+					 	<button  ng-click="sumarUnDia()" style="height: 50px; " class="btn btn-success">>></button>
+					    
+					</h4>
+					<form name="agregarTurnoFrm" ng-submit='agregarTurno()' role="form">
+						
+					 	
+						<!--<input class="form-control" type="text"  placeholder="Hora"
+						 ng-model="nuevoTurno.hora" ng-required="true"/>
+					 	<br>
+						<input class="form-control" type="text"  placeholder="Tiempo en minutos"
+						 ng-model="nuevoTurno.duracionEstimada" ng-required="true"/>
+						<br> -->
+						<input class="form-control input-lg" type="text"  placeholder="Descripción"
+						 ng-model="nuevoTurno.descripcion" ng-required="true"/>
+						<div ng-show="status">{{status}}</div>
+						<br>
+						<button class="btn btn-success btn-block" type="submit">Agregar</button>
+					</form>
+		</div>
+		<h4>Listado de Turno</h4>
 		<span>{{restantes()}}</span>
-		
+	
 		<ul >
-			<li ng-repeat="turno in turnosXdia">
+			<li ng-repeat="turno in turnosXdia track by turno._id" style="padding:5px">
 				<input type="checkbox" ng-model="turno.hecho" ng-change="editarTurno(turno)">
-				<span class="hecho-{{turno.hecho}}" ng-click="editar = true">{{ turno.cuando }} | {{ turno.duracionEstimada }} min| {{ turno.descripcion }} </span>
-				<form name="editarTurnoFrm" ng-show="editar" ng-submit="editar = false;editarTurno(turno)">
+				<span class="hecho-{{turno.hecho}}" ng-click="turno.hecho = !turno.hecho; editarTurno(turno);">
+						{{ turno.cuando | amDateFormat : 'ddd DD' }} 
+						<!--| {{ turno.duracionEstimada }} min -->
+						|  {{ turno.descripcion }}
+					
+				 </span>
+				
+					<a href="" ng-click="eliminarTurno(turno._id)" class="btn btn-danger btn-xs" ng-show="turno.hecho">quitar</a>
+				
+				<!--<form name="editarTurnoFrm" ng-show="editar" ng-submit="editar = false;editarTurno(turno)">
 					<input class="form-control" type="date" ng-model="turno.hora"
 				       placeholder="HH:mm" ng-required="true" />
 				 	
@@ -48,37 +55,15 @@
 					<br>
 					<br>
 					<button type="submit" class="btn btn-warning btn-block">Guardar</button>
-					<a href="" ng-click="eliminarTurno(turno._id)" class="btn btn-danger btn-xs">quitar</a>
+					
+					
 				</form>
-			
+			-->
 				
 			</li>
 		</ul>
-<hr>
-Turnos recientes
-<ul >
-			<li ng-repeat="turno in turnosRecientes">
-				<input type="checkbox" ng-model="turno.hecho" ng-change="editarTurno(turno)">
-				<span ng-click="editar = true">{{ turno.cuando | amDateFormat:'DD-MM-YY'  }} | {{ turno.hora  }} | {{ turno.duracionEstimada }} min| {{ turno.descripcion }} </span>
-				<form name="editarTurnoFrm" ng-show="editar" ng-submit="editar = false;editarTurno(turno)">
-					<input class="form-control" type="date" ng-model="turno.hora"
-				       placeholder="HH:mm" ng-required="true" />
-				 	
-					<br>
-					<input class="form-control"  type="text" size="20" placeholder="Tiempo en minutos"
-					 ng-model="turno.duracionEstimada" ng-required="true"/>
-					<br>
-					<input class="form-control" type="text" size="20" placeholder="Descripción"
-					 ng-model="turno.descripcion" ng-required="true"/>
-					<br>
-					<br>
-					<button class="btn btn-warning" type="submit" >Guardar</button>
-					<a href="" ng-click="eliminarTurno(turno._id)" class="btn btn-danger btn-xs">quitar</a>
-				</form>
-			
-				
-			</li>
-		</ul>
+		<hr>
+
 		<p>{{ mimensaje }}</p>
 	</div>
 </div>

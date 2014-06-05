@@ -5,11 +5,11 @@ app.controller('TurnoCtrl', function ($scope, TurnosService) {
 
 	moment.lang('es', {
 	    calendar : {
-	        lastDay : '[Ayer] dddd DD',
-	        sameDay : '[HOY] dddd DD [de] MMMM',
-	        nextDay : '[Mañana] dddd DD',
-	        lastWeek : '[El Pasado] DD [de] MMMM',
-        	nextWeek : 'dddd DD [de] MMMM',
+	        lastDay : '[Ayer] ddd DD',
+	        sameDay : '[HOY] ddd DD',
+	        nextDay : '[Mañana] ddd DD',
+	        lastWeek : '[El pasado] DD MMM',
+        	nextWeek : 'ddd DD [de] MMM',
 	        sameElse : 'LL'
 	    }
 	});
@@ -26,7 +26,12 @@ app.controller('TurnoCtrl', function ($scope, TurnosService) {
 
 //	$scope.DisplayFechaTurnos=$scope.nuevoTurno.cuando.format("YYYY-MM-DD");
 
-	
+	$scope.mostrarEnLista = function(){
+
+		return "hola mundo";
+
+	}
+
 	$scope.sumarUnDia =function()
 	{
 		//fechaDelTurno.add('days', 1).calendar();
@@ -67,6 +72,7 @@ app.controller('TurnoCtrl', function ($scope, TurnosService) {
 		$scope.turnosService.agregarTurno($scope.nuevoTurno).then(function(){
 			//if($scope.nuevoTurno.cuando==fecha)
 			//	$scope.mimensaje=fecha;
+			$scope.mimensaje="";
 			$scope.nuevoTurno = {cuando:fecha};
 		}, function(status){
             $scope.status = status;			
@@ -74,9 +80,9 @@ app.controller('TurnoCtrl', function ($scope, TurnosService) {
 	}
 
 	$scope.eliminarTurno= function (idTurno) {
-		var turnoActual = $scope.turnosDelDia[idTurno];
+		var turnoActual = $scope.turnosXdia[idTurno];
 		$scope.turnosService.eliminarTurno(idTurno).then(function(){
-			$scope.mimensaje="Se eliminó el turno "  + turnoActual.descripcion;
+			$scope.mimensaje="Se eliminó el turno: "  + turnoActual.descripcion;
 		}, function(status){
             $scope.status = status;			
 		});
@@ -84,7 +90,7 @@ app.controller('TurnoCtrl', function ($scope, TurnosService) {
 
 	$scope.editarTurno = function (turno){
 		$scope.turnosService.editarTurno(turno).then(function(){
-			$scope.mimensaje = "Turno Editado " + turno.descripcion;
+			$scope.mimensaje = "Turno Editado: " + turno.descripcion;
 		}, function(status){
             $scope.status = status;			
 		});
