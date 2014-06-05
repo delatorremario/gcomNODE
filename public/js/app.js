@@ -9,7 +9,11 @@ app.config(function($httpProvider, $routeProvider){
 	//var fecha = moment().format('YYYY-MM-DD');
 	$httpProvider.defaults.headers.common = {'Content-Type': 'application/json'};
 	
-	$routeProvider.when('/turnos', {
+	$routeProvider.when('/login', {
+		templateUrl: 'views/login.html',
+		controller: 'LoginCtrl'
+	})
+	.when('/turnos', {
 		templateUrl: 'views/turnos.html',
 		controller: 'TurnoCtrl',
 		resolve: {
@@ -27,9 +31,9 @@ app.config(function($httpProvider, $routeProvider){
 			}
 		}
 	})
-	.when('/login', {
-		templateUrl: 'views/login.html',
-		controller: 'LoginCtrl'
+	
+	.when('/contacto', {
+		templateUrl: 'views/contacto.html'
 	})
 	.otherwise({redirectTo: '/turnos'});
 });

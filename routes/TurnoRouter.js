@@ -30,26 +30,87 @@ module.exports = function(io){
  //
  var listarTurnosXfecha = function (req,res){
 		
-		
+		var turnos = {};
 		var start= moment(req.params.fecha);//new Date(req.params.fecha);// + "T00:00:00.000Z"); //  "2014-01-02T03:00:00.000Z");
 		//console.log(start);
-	
+	/*
 		Turno.find({
- 		 	cuando: { $gte: start, $lte: start }
+ 		 		cuando: { $lte: start },
+		 		 	hecho:false
+
 
  			}).exec(function (err,turnosArray){
 
-			var turnos = {};
+			
 			_.forEach(turnosArray, function(turno, key){
 				turnos[turno.id] = turno;
 			});
 
-			if(!err) res.send(turnos);
-			else console.log("Error" + err);
 			
+			if(!err) 
+*/
+				Turno.find({
+					cuando: { $gte: start, $lte: start }
+		 		 
+		 			}).exec(function (err,turnosArray){
+
+					
+					_.forEach(turnosArray, function(turno, key){
+						turnos[turno.id] = turno;
+					});
+					if(!err)
+						res.send(turnos);
+					else console.log("Error" + err);
+				/*});
+			else console.log("Error" + err);*/
 		});
+
+ 		
+		
+		
 }
 
+var listarTurnosSinTerminarAnteriores = function (req,res){
+			var end= moment();//new Date(req.params.fecha);// + "T00:00:00.000Z"); //  "2014-01-02T03:00:00.000Z");
+	
+		
+			
+/*		Turno.find({
+					hecho: false,
+ 		 			cuando: { $lte: end }
+ 		 		}).exec(function (err,turnosArray){
+
+				var turnos = {};
+				_.forEach(turnosArray, function(turno, key){
+					turnos[turno.id] = turno;
+				});
+
+			if(!err) res.send(turnos);
+			else console.log("Error" + err); 
+		  // do something with the array of posts
+		});
+*/
+
+
+ 		 Turno
+			.find()
+			.where('hecho').equals(false)
+			.where('cuando').lte(end)
+			.limit(10)
+			.sort('-cuando')
+			.exec(function (err,turnosArray){
+
+					var turnos = {};
+					_.forEach(turnosArray, function(turno, key){
+						turnos[turno.id] = turno;
+					});
+
+				if(!err) res.send(turnos);
+				else console.log("Error" + err); 
+			});
+
+		
+}
 	
 
 	//post
@@ -129,6 +190,7 @@ module.exports = function(io){
 	}
 
 	router.get('/', listarTurnos);
+	router.get('/anteriores', listarTurnosSinTerminarAnteriores);
 	router.get('/:fecha', listarTurnosXfecha);
 	router.post('/',insertTurno);
 	router.put('/:id',updateTurno);

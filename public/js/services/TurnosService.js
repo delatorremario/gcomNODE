@@ -6,12 +6,29 @@ app.factory('TurnosService', function ($http, socketFactory) {
 	TurnosService.turnosCompleto={};
 	TurnosService.turnosRecientes = {};
 	TurnosService.turnosXdia={};
+	TurnosService.turnosSinTerminar={}
 	
 	TurnosService.listarTurnosInicio = function()
 	{
+
+		TurnosService.turnosSinTerminar = TurnosService.listarTurnosSinTerminarAnteriores();
 		var fecha = moment().format('YYYY-MM-DD');
 		return TurnosService.listarTurnosXfecha(fecha);
 
+	}
+
+TurnosService.listarTurnosSinTerminarAnteriores = function () {
+		
+
+		return $http.get('/turnos/anteriores').then(function (response) {
+				//TurnosService.turnos = angular.copy(response.data)
+			//angular.copy(response.data, TurnosService.turnos) ;
+			angular.copy(response.data, TurnosService.turnosSinTerminar) ;
+			//TurnosService.turnos = response.data;
+
+        }, function (response) {
+            return response.status;
+        });
 	}
 
 
@@ -46,6 +63,7 @@ app.factory('TurnosService', function ($http, socketFactory) {
 
 	TurnosService.eliminarTurno= function (idTurno) {
 		return $http.delete('/turnos/' + idTurno).then(function (response) {
+			TurnosService.turnosSinTerminar = TurnosService.listarTurnosSinTerminarAnteriores ();
 			return response;
 			//delete TurnosService.turnos[idTurno];
 		}, function (response) {
@@ -55,6 +73,7 @@ app.factory('TurnosService', function ($http, socketFactory) {
 
 	TurnosService.editarTurno = function (turno){
 		return $http.put('/turnos/' + turno._id, turno).then(function (response) {
+			TurnosService.turnosSinTerminar = TurnosService.listarTurnosSinTerminarAnteriores ();
 			return response;
 			//angular.extend(TurnosService.turnos, response.data);
 		}, function (response) {
@@ -69,6 +88,7 @@ app.factory('TurnosService', function ($http, socketFactory) {
 
 	socket.on('bajaPushTurno', function(data){
 		delete TurnosService.turnosXdia[data._id];
+		
 	});
 
 	return TurnosService;
