@@ -52,7 +52,7 @@ app.controller('TurnoCtrl', function ($scope, TurnosService) {
 	$scope.restantes = function(){
 		var cuenta=0;
 		var cantidad = 0;
-		angular.forEach($scope.turnosDelDia,function(turno) {
+		angular.forEach($scope.turnosXdia,function(turno) {
 			cuenta+=turno.hecho ? 0 : 1;
 			cantidad++;
 		});
@@ -65,8 +65,8 @@ app.controller('TurnoCtrl', function ($scope, TurnosService) {
 		var fecha = $scope.nuevoTurno.cuando;
 		$scope.nuevoTurno.cuando = fecha.format('YYYY-MM-DD');
 		$scope.turnosService.agregarTurno($scope.nuevoTurno).then(function(){
-			if($scope.nuevoTurno.cuando==fecha)
-				$scope.mimensaje=fecha;
+			//if($scope.nuevoTurno.cuando==fecha)
+			//	$scope.mimensaje=fecha;
 			$scope.nuevoTurno = {cuando:fecha};
 		}, function(status){
             $scope.status = status;			
@@ -76,7 +76,7 @@ app.controller('TurnoCtrl', function ($scope, TurnosService) {
 	$scope.eliminarTurno= function (idTurno) {
 		var turnoActual = $scope.turnosDelDia[idTurno];
 		$scope.turnosService.eliminarTurno(idTurno).then(function(){
-			$scope.mimensaje="Se eliminó el turno " + turnoActual._id + " :" + turnoActual.descripcion;
+			$scope.mimensaje="Se eliminó el turno "  + turnoActual.descripcion;
 		}, function(status){
             $scope.status = status;			
 		});

@@ -64,7 +64,7 @@ app.factory('TurnosService', function ($http, socketFactory) {
 
 	var socket = socketFactory();
 	socket.on('altaModificacionPushTurno', function(data){
-			angular.extend(TurnosService.turnosRecientes, data);
+			angular.extend(TurnosService.turnosXdia, data);
 	});
 
 	socket.on('bajaPushTurno', function(data){

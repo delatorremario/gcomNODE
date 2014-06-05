@@ -56,7 +56,7 @@ module.exports = function(io){
 	var insertTurno = function (req,res){
 		console.log('POST');
 		console.log(req.body);
-		var f = moment(req.body.cuando + " " + req.body.hora );
+		var f = moment(req.body.cuando ); //+ " " + req.body.hora );
 		
 		var turno = new Turno({
 			cuando: f,
@@ -69,7 +69,7 @@ module.exports = function(io){
 			if(!err){
 
 			 console.log('Turno guardado!');
-			 console.log(turno);
+			// console.log(turno);
 			}
 			else console.log('Error al guardar el Turno:' + err);
 			
